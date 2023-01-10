@@ -1,6 +1,6 @@
 import {Router} from 'express'
 
-import {createNewproduct, getProducts, getProductsById,deleteProduct,getTotalProducts,UpdateProducts,SelectProduct,ConfirmCot,RejectCot,updateCotizaDetallesS,updateCotizaDetallesN} from '../controllers/products.controller.js'
+import {createNewproduct, getProducts, getProductsById,deleteProduct,getContratos,firmadeContrato,UpdateProducts,SelectProduct,ConfirmCot,RejectCot,updateCotizaDetallesS,updateCotizaDetallesN} from '../controllers/products.controller.js'
 
 const router = Router();
 import {ruta} from '../app.js';
@@ -57,4 +57,9 @@ router.get('/UpdateDetallesS/:id',updateCotizaDetallesS);
 ///Rechazar una cotizacion detalle
 
 router.get('/UpdateDetallesN/:id',updateCotizaDetallesN);
+
+router.get('/contrato/:id',getContratos);
+
+router.post('/contratosFirma',firmadeContrato);
+
 export default router

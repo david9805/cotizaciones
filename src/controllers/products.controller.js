@@ -105,6 +105,52 @@ export const getProductsById = async (req,res)=> {
     }
 }
 
+export const getContratos = async (req,res)=> {
+    try
+    {
+        const {id} = req.params;
+        
+
+        const pool = await getConnection();
+        const result = await pool.request()
+        .input("ID",sql.Int,id)
+        .query(queries.contratos);
+
+
+        if (result.rowsAffected > 0 )
+        {
+            res.render(path.join(ruta+'/view/contrato.ejs'),{contratos : result.recordset[0]});
+        }        
+    }    
+    catch (error)
+    {
+        res.status(500)
+        res.send(error.message)
+    }
+}
+
+export const firmadeContrato = async (req,res)=> {
+    try
+    {
+        const id= req.body.IDCONTRATO;
+        var firma = req.body.FIRMA;    
+
+        const pool = await getConnection();
+        const result = await pool.request()
+        .input("ID",sql.Int,id)
+        .input("FIRMA",sql.VarChar,firma)
+        .input("TIENEFIRMA",sql.VarChar,'S')        
+        .query(queries.firmaContrato);
+
+        res.render(path.join(ruta+'/view/confirm.ejs'));
+           
+    }    
+    catch (error)
+    {
+        res.status(500)
+        res.send(error.message)
+    }
+}
 
 export const deleteProduct = async (req,res)=> {
     try
